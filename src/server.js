@@ -9,7 +9,9 @@ const PORT = 4000;
 const app = express();
 const logger = morgan("dev");
 app.use(logger);
-app.get("/login", login);
+
+app.use("/", globalRouter);
+app.use("/videos", videoRouter);
 app.use("/users", userRouter);
 
 const handleListening = () =>
