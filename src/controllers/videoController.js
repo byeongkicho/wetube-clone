@@ -1,11 +1,25 @@
+import res from "express/lib/response";
 import Video from "../models/Video";
 
-export const home = (req, res) => {
-  return res.render("home", { pageTitle: "Home" });
+/* 
+
+Video.find({}, (error, videos) => {
+  if(error){
+    return res.render("server-error")
+  }
+  return res.render("home", { pageTitle: "Home", videos })
+});
+
+*/
+export const home = async (req, res) => {
+  const videos = await Video.find({});
+  console.log(videos);
+  return res.render("home", { pageTitle: "Home", videos });
 };
+
 export const watch = (req, res) => {
   const { id } = req.params;
-  return res.render("watch", { pageTitle: `Watch` });
+  return res.render("watch", { pageTitle: `Watching` });
 };
 export const getEdit = (req, res) => {
   const { id } = req.params;
@@ -19,7 +33,20 @@ export const postEdit = (req, res) => {
 export const getUpload = (req, res) => {
   return res.render("upload", { pageTitle: "Upload Video" });
 };
-export const postUpload = (req, res) => {
-  const { title } = req.body;
-  return res.redirect("/");
+export const postUpload = async (req, res) => {
+  const { title, description, hashtags } = req.body;
+  try {
+    await Video.create({
+      title,
+      description,
+      createdAt: Date.now(),
+      hashtags: hashtags.split(",").map((word) => `#${word}`),
+    });
+    return res.redirect("/");
+  } catch (error) {
+    return res.render("upload", {
+      pageTitle: "Upload Video",
+      errorMessage: error._message,
+    });
+  }
 };
