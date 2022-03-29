@@ -12,7 +12,7 @@ Video.find({}, (error, videos) => {
 
 */
 export const home = async (req, res) => {
-  const videos = await Video.find({});
+  const videos = await Video.find({}).sort({createdAt: "asc" });
   return res.render("home", { pageTitle: "Home", videos });
 };
 
@@ -67,3 +67,21 @@ export const postUpload = async (req, res) => {
     });
   }
 };
+
+export const deleteVideo = async(req, res) => {
+  const {id } = req.params;
+  await Video.findByIdAndDelete(id)
+  // delete video here 
+  return res.redirect("/")
+} 
+export const search = (req, res) => {
+  const {keyword} = req.query
+  // req.query is for the URL data.
+  // for :id from router => req.params.
+  // input from pug => req.body( when form is POST)
+  // input (URL) from pug => req.query (when form is GET)
+  if (keyword) {
+    // search 
+  }
+  return res.render("search", {pageTitle:"Search"})
+}
