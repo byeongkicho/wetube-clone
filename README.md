@@ -1,22 +1,12 @@
-# Wetube Reloaded
+# Wetube Clone
 
-<!-- Global Router -->
+### Using:
 
-/ -> Home
-/join -> Join
-/login -> Login
-/search -> Search
+- VanillaJS
+- ExpressJS
+- MongoDB
+- Pug
 
-<!-- User Router -->
+## Added function ⇒ checking users/edit-profile exists
 
-/users/:id -> See User
-/users/logout -> Log Out
-/users/edit -> Edit My Profile
-/users/remove -> Delete My Profile
-
-<!-- Video Router -->
-
-/videos/:id -> See Video
-/videos/:id/edit -> Edit Video
-/videos/:id/delete -> Delete Video
-/videos/upload -> Upload Video
+- find username, email from session and current username,email from current body (form) and check it is alreday exist and return to edit-profile and return errormessage

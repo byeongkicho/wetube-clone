@@ -2,6 +2,7 @@ import User from "../models/User";
 import fetch from "cross-fetch";
 import bcrypt from "bcrypt";
 import { redirect } from "express/lib/response";
+import session from "express-session";
 
 export const getJoin = (req, res) => res.render("Join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
@@ -146,19 +147,44 @@ export const getEdit = (req, res) => {
 
 export const postEdit = async (req, res) => {
   const {
-    session: {
-      user: { id },
-    },
     body: { name, email, username, location },
+    session: {
+      user: { _id },
+    },
   } = req;
-  // const id = req.session.user.id
-  await User.findByIdAndUpdate(id, {
-    name: name,
-    email: email,
-    username: username,
-    location: location,
-  });
-  return res.render("edit-profile");
-};
 
+  let errorMessage = {};
+
+  const loggedInUser = await User.findById(_id);
+  if (loggedInUser.email !== email && (await User.exists({ email }))) {
+    errorMessage.email = "This email is already exists.";
+  }
+  if (loggedInUser.username !== username && (await User.exists({ username }))) {
+    errorMessage.username = "This username is already exists.";
+  }
+  if (Object.keys(errorMessage).length !== 0) {
+    return res.render("edit-profile", {
+      pageTitle: "Edit Profile",
+      errorMessage,
+    });
+  } else {
+    return res.render("edit-profile", {
+      pageTitle: "Edit Profile",
+      happyMessage: "Successfully Edited",
+    });
+  }
+  const updatedUser = await User.findByIdAndUpdate(
+    _id,
+    {
+      name: name,
+      email: email,
+      username: username,
+      location: location,
+    },
+    { new: true }
+  );
+  req.session.user = updatedUser;
+  // res.render("login", { pageTitle: "Login" });
+  return res.redirect("/users/edit");
+};
 export const see = (req, res) => res.send("See Profile");
