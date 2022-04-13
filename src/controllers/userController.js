@@ -148,10 +148,12 @@ export const getEdit = (req, res) => {
 export const postEdit = async (req, res) => {
   const {
     body: { name, email, username, location },
+    file,
     session: {
       user: { _id },
     },
   } = req;
+  console.log(file);
 
   let errorMessage = {};
 
@@ -167,12 +169,8 @@ export const postEdit = async (req, res) => {
       pageTitle: "Edit Profile",
       errorMessage,
     });
-  } else {
-    return res.render("edit-profile", {
-      pageTitle: "Edit Profile",
-      happyMessage: "Successfully Edited",
-    });
   }
+
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
@@ -187,4 +185,48 @@ export const postEdit = async (req, res) => {
   // res.render("login", { pageTitle: "Login" });
   return res.redirect("/users/edit");
 };
+
+export const getChangePassword = (req, res) => {
+  if (req.session.user.socialOnly === true) {
+    return res.redirect("/");
+  }
+  return res.render("users/change-password", { pageTitle: "Change Password" });
+};
+
+export const postChangePassword = async (req, res) => {
+  const {
+    session: {
+      user: { _id },
+    },
+    body: { oldPassword, newPassword, newPasswordConfirmation },
+  } = req;
+  const user = await User.findById(_id);
+  const ok = await bcrypt.compare(oldPassword, user.password);
+  const pageTitle = "Change Password";
+  if (!ok) {
+    return res.status(400).render("users/change-password", {
+      pageTitle,
+      errorMessage: "The current password is incorrect",
+    });
+  }
+  if (newPassword !== newPasswordConfirmation) {
+    return res.status(400).render("users/change-password", {
+      pageTitle,
+      errorMessage: "The password does not match the confirmation",
+    });
+  }
+  if (oldPassword === newPassword) {
+    return res.status(400).render("users/change-password", {
+      pageTitle,
+      errorMessage: "The old password equals new password",
+    });
+  }
+  user.password = newPassword;
+  await user.save();
+  // send notification
+  req.session.destroy();
+  return res.redirect("/login");
+  // notification : "password changed successfully"
+};
+
 export const see = (req, res) => res.send("See Profile");
