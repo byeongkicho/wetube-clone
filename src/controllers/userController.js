@@ -1,4 +1,5 @@
 import User from "../models/User";
+import Video from "../models/Video";
 import fetch from "cross-fetch";
 import bcrypt from "bcrypt";
 import { redirect } from "express/lib/response";
@@ -150,7 +151,7 @@ export const postEdit = async (req, res) => {
     body: { name, email, username, location },
     file,
     session: {
-      user: { _id },
+      user: { _id, avatarUrl },
     },
   } = req;
   console.log(file);
@@ -174,6 +175,7 @@ export const postEdit = async (req, res) => {
   const updatedUser = await User.findByIdAndUpdate(
     _id,
     {
+      avatarUrl: file ? file.path : avatarUrl,
       name: name,
       email: email,
       username: username,
@@ -229,4 +231,14 @@ export const postChangePassword = async (req, res) => {
   // notification : "password changed successfully"
 };
 
-export const see = (req, res) => res.send("See Profile");
+export const see = async (req, res) => {
+  const { id } = req.params;
+  const user = await User.findById(id).populate("videos");
+  if (!user) {
+    return res.status(404).render("404", { pageTitle: "User not found." });
+  }
+  return res.render("users/profile", {
+    pageTitle: user.name,
+    user: user,
+  });
+};
