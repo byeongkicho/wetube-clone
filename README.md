@@ -1052,3 +1052,65 @@ video ⇒ view counts
 comment function
 
 record video
+
+### Webpack
+
+- npm install -D babel-loader
+
+```jsx
+const path = require("path");
+
+module.exports = {
+  output: {
+    filename: "my-first-webpack.bundle.js",
+  },
+  module: {
+    rules: [{ test: /\.txt$/, use: "raw-loader" }],
+  },
+};
+```
+
+- to allows browser to read the assets/js.main.js add express.static("assets") to the server.js
+
+### sass-loader
+
+- Loads a Sass/SCSS file and compiles it to CSS.
+
+### css-loader
+
+- interprets @import and url() like import/require() and will resolve them.
+
+### style-loader
+
+- Inject CSS into the DOM.
+
+### webpack
+
+webpack execute backwards.
+
+```jsx
+      {
+      test: /\.scss$/,
+      use: ["style-loader", "css-loader", "sass-loader"],
+    },
+```
+
+### mini-css-extract-plugin
+
+- extract css from js file and with filename property you can put css file inside of foler like css/styles.css
+
+### Fix repeating task
+
+- To avoid type "npm run aseets" and delete assets folder everytime when you update the code inside you can use function "watch"
+
+```jsx
+  watch: true,
+```
+
+- clean output folder before start build
+
+```jsx
+  clean: true,
+```
+
+- Now you have two console terminal one for backend, one for webpack. you need to maintain both
