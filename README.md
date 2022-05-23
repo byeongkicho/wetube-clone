@@ -1114,3 +1114,22 @@ webpack execute backwards.
 ```
 
 - Now you have two console terminal one for backend, one for webpack. you need to maintain both
+
+### 웹팩 개별 엔트리 설정 방법
+
+2개의 개별 엔트리 포인트를 원한다고 webpack에게 알려줍니다.
+
+```
+// 사용 예시
+module.exports = {
+entry: {
+main: './src/app.js',
+vendor: './src/vendor.js',
+},
+output: {
+filename: '[name].bundle.js',
+},
+};
+```
+
+https://webpack.kr/concepts/entry-points/#separate-app-and-vendor-entries
