@@ -1,5 +1,4 @@
 import User from "../models/User";
-import Video from "../models/Video";
 import fetch from "cross-fetch";
 import bcrypt from "bcrypt";
 import { redirect } from "express/lib/response";
@@ -118,9 +117,9 @@ export const finishGithubLogin = async (req, res) => {
     }
     let user = await User.findOne({ email: emailObj.email });
     if (!user) {
-      const user = await User.create({
+      user = await User.create({
         name: userData.name,
-        avatarUrl: userData.avatarUrl,
+        avatarUrl: userData.avatar_Url,
         username: userData.login,
         email: emailObj.email,
         password: "",
@@ -154,10 +153,7 @@ export const postEdit = async (req, res) => {
       user: { _id, avatarUrl },
     },
   } = req;
-  console.log(file);
-
   let errorMessage = {};
-
   const loggedInUser = await User.findById(_id);
   if (loggedInUser.email !== email && (await User.exists({ email }))) {
     errorMessage.email = "This email is already exists.";
@@ -233,7 +229,13 @@ export const postChangePassword = async (req, res) => {
 
 export const see = async (req, res) => {
   const { id } = req.params;
-  const user = await User.findById(id).populate("videos");
+  const user = await User.findById(id).populate({
+    path: "videos",
+    populate: {
+      path: "owner",
+      model: "User",
+    },
+  });
   if (!user) {
     return res.status(404).render("404", { pageTitle: "User not found." });
   }
