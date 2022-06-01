@@ -1133,3 +1133,26 @@ filename: '[name].bundle.js',
 ```
 
 https://webpack.kr/concepts/entry-points/#separate-app-and-vendor-entries
+
+## JS time format tip
+
+```jsx
+const formatTime = (seconds) =>
+  new Date(seconds * 1000).toISOString().substring(14, 19);
+```
+
+## FullScreen
+
+- Fullscreen API
+- Element.requestFullscreen
+- Document.exitFullscreen
+- DocumentOrShadowRoot.fullscreenElement
+
+## Controls Event
+
+- how to catch the state when mouse placed inside of video_container
+
+```jsx
+video.addEventListener("mousemove", handleMouseMove);
+video.addEventListener("mouseleave", handleMouseLeave);
+```
