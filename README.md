@@ -1156,3 +1156,10 @@ const formatTime = (seconds) =>
 video.addEventListener("mousemove", handleMouseMove);
 video.addEventListener("mouseleave", handleMouseLeave);
 ```
+
+- when user move on top of video adding a class, when the user leave a video remove a class after 3seconds.
+  when user enter a video and leave timeout starts but when user's mouse enter video again previous timeout should cancel.
+  but when user stop mouse then create timeout for remove a class.
+  becuase timeout only when user move mouse.
+
+- videoplayer control with "keydown" - space key is keycode 32... wow and click the video to fire handlePlayClick() function.
