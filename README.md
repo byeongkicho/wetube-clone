@@ -1163,3 +1163,8 @@ video.addEventListener("mouseleave", handleMouseLeave);
   becuase timeout only when user move mouse.
 
 - videoplayer control with "keydown" - space key is keycode 32... wow and click the video to fire handlePlayClick() function.
+
+## Interactivity: Changing a page without changing the url
+
+- data attribute : you can store any data that starts with "data-".
+- and you can access with element.dataset
