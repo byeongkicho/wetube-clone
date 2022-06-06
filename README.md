@@ -1168,3 +1168,12 @@ video.addEventListener("mouseleave", handleMouseLeave);
 
 - data attribute : you can store any data that starts with "data-".
 - and you can access with element.dataset
+
+## VIDEO RECORDER
+
+## BugFix
+
+- regeneratorRuntime is not efined
+- to use async and await in the frontend you need to install this
+- MediaDevices.getUserMedia()
+- constraints : An object specifying the types of media to request, along with any requirements for each type.
