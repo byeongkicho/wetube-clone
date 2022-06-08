@@ -1177,3 +1177,11 @@ video.addEventListener("mouseleave", handleMouseLeave);
 - to use async and await in the frontend you need to install this
 - MediaDevices.getUserMedia()
 - constraints : An object specifying the types of media to request, along with any requirements for each type.
+
+## MediaRecorder(stream)
+
+- The MediaRecorder interface of the MediaStream Recording API provides functionality to easily record media. It is created using the MediaRecorder() constructor.
+
+## objectUrl
+
+- const video = URL.createObjectURL() will create URL only available in browser memory. (url point browser's memory)
