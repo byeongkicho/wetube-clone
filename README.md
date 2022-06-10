@@ -1193,3 +1193,10 @@ video.addEventListener("mouseleave", handleMouseLeave);
 ## thumbnail
 
 - Uint8Array = unsigned integer (positive integer)
+
+## Flash-message
+
+- Express Flash is a middleware package allow to leave a messages to users. and message based on session so only user able to see it.
+- after you install it , use req.flash() anywhere redirect user.
+- when you make a message with req.flash() it is pretty much make locals property. we can use it "messages.(error?)"
+- only show once, after showing express delete message form cache
