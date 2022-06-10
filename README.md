@@ -1185,3 +1185,11 @@ video.addEventListener("mouseleave", handleMouseLeave);
 ## objectUrl
 
 - const video = URL.createObjectURL() will create URL only available in browser memory. (url point browser's memory)
+
+- if you want to use binary data => buffer
+- to transcode video file => ffmpeg
+  - usually use in the backend, because heavy, but because webassembly you can use it in the frontend.
+
+## thumbnail
+
+- Uint8Array = unsigned integer (positive integer)
