@@ -101,7 +101,7 @@ const handleMouseLeave = () => {
 };
 
 const keyboardControl = (event) => {
-  if (event.keyCode === 32) {
+  if (event.code === "Space" && event.target.id !== "textarea") {
     handlePlayClick();
   }
 };
@@ -128,4 +128,4 @@ fullScreenBtn.addEventListener("click", handleFullscreen);
 videoContainer.addEventListener("mousemove", handleMouseMove);
 videoContainer.addEventListener("mouseleave", handleMouseLeave);
 videoContainer.addEventListener("click", handleVideoClick);
-window.addEventListener("keydown", keyboardControl);
+document.addEventListener("keydown", keyboardControl);

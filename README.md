@@ -1200,3 +1200,15 @@ video.addEventListener("mouseleave", handleMouseLeave);
 - after you install it , use req.flash() anywhere redirect user.
 - when you make a message with req.flash() it is pretty much make locals property. we can use it "messages.(error?)"
 - only show once, after showing express delete message form cache
+
+## Comment
+
+- commentSchema (text, owner, video, createAt)
+- If user leave comment User can be owner of comment (comment has a User) But User can have multiple comments (array)
+- User leave comment to video so video: {ref: "Video}
+- to minimize Error => use a constant
+- event.preventDefault();
+- you can use Data-id (videoContainer.dataset.id)to know which video you are in.
+- error => "Cannot read property 'querySelector' of null
+  - fix => change JS code to prepare for when form is not exist.
+  - only show commentSection.js when user loggedIn.

@@ -6,7 +6,6 @@ import session from "express-session";
 
 export const getJoin = (req, res) => res.render("Join", { pageTitle: "Join" });
 export const postJoin = async (req, res) => {
-  console.log(req.body);
   const { name, username, email, password, password2, location } = req.body;
   const pageTitle = "Join";
   if (password !== password2) {
@@ -155,7 +154,9 @@ export const postEdit = async (req, res) => {
     },
   } = req;
   let errorMessage = {};
+
   const loggedInUser = await User.findById(_id);
+
   if (loggedInUser.email !== email && (await User.exists({ email }))) {
     errorMessage.email = "This email is already exists.";
   }
@@ -169,7 +170,7 @@ export const postEdit = async (req, res) => {
     });
   }
 
-  const updatedUser = await User.findByIdAndUpdate(
+  const updatedUser = await User.AndUpdate(
     _id,
     {
       avatarUrl: file ? file.path : avatarUrl,
