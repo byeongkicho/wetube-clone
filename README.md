@@ -1230,3 +1230,33 @@ app.use(express.json());
 ```
 
 - but express.json will expect to get text type so, we have to change the Content-Type of request. add header part to fetch
+- You need to mannually include new id of comment to the video for MongoDB
+
+  - Two way of populating Multiple Paths. ( when you need to find user or video from comment inside of Video)
+
+    ```jsx
+    Manager.find().populate({
+      path: "users",
+      populate: [{ path: "cars" }, { path: "houses" }],
+    });
+    ```
+
+    ```jsx
+    Manager.find().populate({
+      path: "users",
+      populate: "cars houses",
+    });
+    ```
+
+    ```jsx
+    const foundUser = await User.findById({ _id: loggedInUser._id }).populate(
+      "comments"
+    );
+
+    if (!foundUser) {
+      return res.sendStatus(404);
+    }
+    const createdComment = await Comment.create({ owner: loggedInUser.\_id, video: id, text });
+    foundUser.comments.push(createdComment);
+    foundUser.save();
+    ```
