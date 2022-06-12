@@ -1210,5 +1210,23 @@ video.addEventListener("mouseleave", handleMouseLeave);
 - event.preventDefault();
 - you can use Data-id (videoContainer.dataset.id)to know which video you are in.
 - error => "Cannot read property 'querySelector' of null
+
   - fix => change JS code to prepare for when form is not exist.
   - only show commentSection.js when user loggedIn.
+
+```jsx
+app.use(express.json());
+```
+
+- middleware function that come with ExpressJS.
+  based on body-parser parsing the String transfered by request payload
+- express take string that used to be object and turn it back in to proper JS Object
+- Our backend will take every text to put that in the req.body.
+
+- with this middleware server can understand data from the form (fetch). usually json file. => JSON.stringify()
+
+```jsx
+app.use(express.json());
+```
+
+- but express.json will expect to get text type so, we have to change the Content-Type of request. add header part to fetch
