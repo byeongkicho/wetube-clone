@@ -1260,3 +1260,13 @@ app.use(express.json());
     foundUser.comments.push(createdComment);
     foundUser.save();
     ```
+
+- appendChild() => comment place end of comment, prepend() goes first.
+
+## How to implement delete comment.
+
+1. you need to know id of comment that you want to delete.
+2. li.video\_\_comment(data-id=comment.id) => delete request
+3. when comment created we return res.status(201) and json({newCommentId: comment.\_id})
+4. If user is not a same user who create that comment you need hide delete button.
+5. You need to delete HTML. Method will be DELETE, fetch with commentId then make DeleteComment function.
