@@ -12,14 +12,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/taboo32/wetube-clone.git"
+    "url": "git+https://github.com/byeongkicho/wetube-clone.git"
   },
   "author": "Byeongki Cho",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/taboo32/wetube-clone/issues"
+    "url": "https://github.com/byeongkicho/wetube-clone/issues"
   },
-  "homepage": "https://github.com/taboo32/wetube-clone#readme",
+  "homepage": "https://github.com/byeongkicho/wetube-clone#readme",
   "dependencies": {
     "@ffmpeg/core": "^0.10.0",
     "@ffmpeg/ffmpeg": "^0.10.1",
