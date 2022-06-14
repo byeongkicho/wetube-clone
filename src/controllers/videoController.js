@@ -165,3 +165,36 @@ export const createComment = async (req, res) => {
   video.save();
   return res.status(201).json({ newCommentId: comment._id });
 };
+
+export const deleteComment = async (req, res) => {
+  const {
+    params: { id: commentId },
+  } = req;
+  const {
+    session: {
+      user: { _id: userId },
+    },
+  } = req;
+  const comment = await Comment.findById(commentId)
+    .populate("owner")
+    .populate("video");
+  const video = comment.video;
+  const user = await User.findById(userId);
+
+  // Is it same user between LoggedIn user and Owner of Comment?
+  if (String(userId) !== String(comment.owner._id)) {
+    return res.sendStatus(404);
+  }
+  if (!video) {
+    return res.sendStatus(404);
+  }
+
+  // Delete Comment and from Video, User model
+  user.comments.splice(user.comments.indexOf(commentId), 1);
+  await user.save();
+  video.comments.splice(video.comments.indexOf(commentId), 1);
+  await video.save();
+  await Comment.findByIdAndRemove(commentId);
+
+  return res.status(200);
+};
