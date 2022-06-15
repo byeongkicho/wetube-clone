@@ -15,13 +15,13 @@ header
                     a(href="/users/edit") Edit Profile
                 li
                     a(href=`/users/${loggedInUser._id}`)
-                        if !loggedInUser.avatarUrl
+                        if !loggedInUser.avatarUrl === ""
                             span 😊
                         else
-                            if loggedInUser.avatarUrl[0]==="h"
-                                img(src= loggedInUser.avatarUrl,crossorigin).header__avatar
+                            if loggedInUser.socialOnly
+                                img.header__avatar(src= loggedInUser.avatarUrl,crossorigin)
                             else
-                                img(src= "/"+loggedInUser.avatarUrl,crossorigin).header__avatar
+                                img.header__avatar(src= "/"+loggedInUser.avatarUrl,crossorigin)
             else
                 li 
                     a(href="/login") Login
